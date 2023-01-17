@@ -1,0 +1,14 @@
+.add-note-container {
+    display: grid;
+    gap: 1rem;
+    grid-template-rows: 1fr 2fr 1fr;
+}
+
+.content-input {
+    min-height: 300px;
+}
+
+textarea {
+    resize: none;
+    height: 300px;
+}

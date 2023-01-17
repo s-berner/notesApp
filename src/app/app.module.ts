@@ -5,13 +5,20 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
 
+import { ColorPickerModule } from 'ngx-color-picker';
+
 import { AppComponent } from './app.component';
 import { NotesComponent } from './notes/notes.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AddNoteComponent } from './add-note/add-note.component';
+import { NoteDetailComponent } from './note-detail/note-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NotesComponent,
+    AddNoteComponent,
+    NoteDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -22,6 +29,8 @@ import { NotesComponent } from './notes/notes.component';
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
     ),
+    AppRoutingModule,
+    ColorPickerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,11 @@
+.notes-container {
+    display: flex;
+    gap: 1rem;
+    flex-flow: row wrap;
+    align-self: flex-start;
+}
+
+section {
+    padding: 1rem;
+    border-radius: 20px;
+}

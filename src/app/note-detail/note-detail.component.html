@@ -1,0 +1,5 @@
+<section *ngIf="note" [style.background]="note.bg" [style.color]="note.fc">
+    <h3>{{note.title}}</h3>
+    <p>{{note.content}}</p>
+    <p>Created: {{note.created | date}}</p>   
+</section>

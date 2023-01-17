@@ -1,0 +1,21 @@
+h1 {
+    display: flex;
+    justify-content: center;
+}
+
+nav {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 1rem;
+}
+
+a {
+    background: rgb(91,104,201);
+    color: rgb(255,255,255);
+    height: 30px;
+    width: 150px;
+    border-radius: 20px;
+    text-align: center;
+    line-height: 30px;
+    text-decoration: none;
+}
