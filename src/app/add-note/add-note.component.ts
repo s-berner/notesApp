@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 
 import { NoteService } from '../note.service';
 import { Note } from '../note';
-import { RgbColor } from '../Color';
+import { RgbColor } from '../color';
 
 @Component({
   selector: 'app-add-note',
@@ -12,7 +12,7 @@ import { RgbColor } from '../Color';
 })
 export class AddNoteComponent implements OnInit {
   notes: Note[] = [];
-  color = 'rgb(63,69,193)'; // default color
+  color = 'rgb(91,104,201)'; // default color
   
   constructor(
     private noteService: NoteService,

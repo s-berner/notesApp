@@ -35,8 +35,33 @@ export class NoteService {
         tap(newNote => console.log(`new note created with id: ${newNote.id}`)),
         catchError((error) => {
           console.error(error);
-          return throwError(() => new Error('test'));
+          return throwError(() => new Error(error));
         })
       );
   }
+
+  /** PUT: update a note */
+  updateNote(note: Note): Observable<any> {
+    return this.http.put<Note>(this.notesUrl, note, this.httpOptions)
+      .pipe(
+        tap(_ => console.log(`updated note with id: ${note.id}`)),
+        catchError((error) => {
+          console.error(error);
+          return throwError(() => new Error(error) )
+        })
+      );
+  }
+
+  deleteNote(id: string): Observable<any> {
+    const url = `${this.notesUrl}/${id}`
+    return this.http.delete<Note>(url, this.httpOptions)
+      .pipe(
+        tap(_ => console.log(`deleted note with id: ${id}`)),
+        catchError((error) => {
+          console.error(error);
+          return throwError(() => new Error(error));
+        })
+      )
+  }
+
 }

@@ -12,6 +12,7 @@ import { NotesComponent } from './notes/notes.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AddNoteComponent } from './add-note/add-note.component';
 import { NoteDetailComponent } from './note-detail/note-detail.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { NoteDetailComponent } from './note-detail/note-detail.component';
     ),
     AppRoutingModule,
     ColorPickerModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

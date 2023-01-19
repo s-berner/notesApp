@@ -1,5 +1,10 @@
-<section *ngIf="note" [style.background]="note.bg" [style.color]="note.fc">
-    <h3>{{note.title}}</h3>
-    <p>{{note.content}}</p>
-    <p>Created: {{note.created | date}}</p>   
-</section>
+<div class="note-detail-container">
+    <section *ngIf="note" [style.background]="note.bg" [style.color]="note.fc">
+        <h3 contenteditable="true" #noteTitle>{{note.title}}</h3>
+        <p contenteditable="true" #noteContent>{{note.content}}</p>
+        <p>Created: {{note.created | date}}</p>   
+        <button type="button" [disabled]="false" (click)="applyChanges(noteTitle.innerText, noteContent.innerText); updateNote()">Save</button>
+        <button type="button" (click)="deleteNote()">Delete</button> 
+        <button type="button" (click)="goBack()">Back</button>
+    </section>
+</div>

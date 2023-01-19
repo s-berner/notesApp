@@ -1,7 +1,7 @@
 <div class="notes-container">
     <section *ngFor="let note of notes" routerLink="/detail/{{note.id}}" [style.background]="note.bg" [style.color]="note.fc">
             <h3>{{note.title}}</h3>
-            <p>{{note.content}}</p>
-            <p>Created: {{note.created | date}}</p>   
+            <p class="note-content">{{note.content}}</p>
+            <p class="note-created">Created: {{note.created | date}}</p>   
     </section>
 </div>

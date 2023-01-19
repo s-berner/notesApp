@@ -1,4 +1,14 @@
+.note-detail-container {
+    display: flex;
+    justify-content: center;
+}
+
+input {
+    width: 100%;
+}
+
 section {
     padding: 1rem;
     border-radius: 20px;
+    width: 50%;
 }

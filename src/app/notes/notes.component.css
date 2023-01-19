@@ -1,11 +1,29 @@
 .notes-container {
     display: flex;
     gap: 1rem;
-    flex-flow: row wrap;
-    align-self: flex-start;
+    flex-wrap: wrap;
+}
+
+.note-content {
+    height: 300px;
+    overflow: auto;
+    scrollbar-width: thin;
+    
+}
+
+.note-created {
+    position: absolute;
+    bottom: 0px;
 }
 
 section {
     padding: 1rem;
     border-radius: 20px;
+    width: 250px;
+    position: relative;
+}
+
+section:hover {
+    cursor: pointer;
+    box-shadow: 10px 10px 5px #888888;
 }
