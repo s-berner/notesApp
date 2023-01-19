@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { NoteService } from '../note.service';
@@ -9,8 +9,9 @@ import { Note } from '../note';
   templateUrl: './note-detail.component.html',
   styleUrls: ['./note-detail.component.css']
 })
-export class NoteDetailComponent implements OnInit {
+export class NoteDetailComponent implements OnInit, OnChanges {
   note: Note | undefined;
+  isDisabled: boolean = true;
   
   constructor(
     private noteService: NoteService,
@@ -20,6 +21,10 @@ export class NoteDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getHero();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
   }
 
   applyChanges(title: string, content: string): void {

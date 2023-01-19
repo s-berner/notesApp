@@ -21,9 +21,11 @@ section {
     border-radius: 20px;
     width: 250px;
     position: relative;
+    transition: top ease-in-out 0.2s
 }
 
 section:hover {
     cursor: pointer;
     box-shadow: 10px 10px 5px #888888;
+    top: -10px;
 }

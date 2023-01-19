@@ -3,7 +3,7 @@
         <h3 contenteditable="true" #noteTitle>{{note.title}}</h3>
         <p contenteditable="true" #noteContent>{{note.content}}</p>
         <p>Created: {{note.created | date}}</p>   
-        <button type="button" [disabled]="false" (click)="applyChanges(noteTitle.innerText, noteContent.innerText); updateNote()">Save</button>
+        <button type="button" [disabled]="isDisabled" (click)="applyChanges(noteTitle.innerText, noteContent.innerText); updateNote()">Save</button>
         <button type="button" (click)="deleteNote()">Delete</button> 
         <button type="button" (click)="goBack()">Back</button>
     </section>

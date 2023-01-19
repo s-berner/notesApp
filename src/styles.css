@@ -6,4 +6,5 @@ body {
 /* everywhere else */
 * {
     font-family: 'Courier New', Courier, monospace;
+    scrollbar-width: thin;
 }

@@ -6,8 +6,8 @@ import { AddNoteComponent } from './add-note/add-note.component';
 import { NoteDetailComponent } from './note-detail/note-detail.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/notes', pathMatch: 'full' },
-  { path: 'notes', component: NotesComponent },
+  { path: '', redirectTo: '/overview', pathMatch: 'full' },
+  { path: 'overview', component: NotesComponent },
   { path: 'addNote', component: AddNoteComponent },
   { path: 'detail/:id', component: NoteDetailComponent },
 ];
