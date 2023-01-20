@@ -1,7 +1,19 @@
 <div class="notes-container">
-    <section *ngFor="let note of notes" routerLink="/detail/{{note.id}}" [style.background]="note.bg" [style.color]="note.fc">
+    <section *ngFor="let note of ongoingNotes" routerLink="/detail/{{note.id}}" [style.background]="note.colorData.bg"
+        [style.color]="note.colorData.fc">
+        <h3>{{note.title}}</h3>
+        <p class="note-content">{{note.content}}</p>
+        <p class="note-created">Created: {{note.created | date}}</p>
+    </section>
+</div>
+<div>
+    <button class="btn-collapsible" type="button" (click)="collapsibleBtnClicked()">Show Archive</button>
+    <div class="collapsible" [hidden]="isCollapsed">
+        <section class="archived-notes" *ngFor="let note of archivedNotes" routerLink="/detail/{{note.id}}"
+            [style.background]="note.colorData.bg" [style.color]="note.colorData.fc">
             <h3>{{note.title}}</h3>
             <p class="note-content">{{note.content}}</p>
-            <p class="note-created">Created: {{note.created | date}}</p>   
-    </section>
+            <p class="note-created">Created: {{note.created | date}}</p>
+        </section>
+    </div>
 </div>

@@ -21,11 +21,15 @@ section {
     border-radius: 20px;
     width: 250px;
     position: relative;
-    transition: top ease-in-out 0.2s
+    transition: top 5s linear
 }
 
 section:hover {
     cursor: pointer;
     box-shadow: 10px 10px 5px #888888;
     top: -10px;
+}
+
+.archived-notes {
+    filter: grayscale(80%)
 }

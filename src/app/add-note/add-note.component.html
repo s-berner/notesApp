@@ -7,7 +7,9 @@
     
     <label for="new-note-backgroundcolor">Color: </label>
     <input id="new-note-backgroundcolor" [(colorPicker)]="color" [style.background]="color" cpOutputFormat="rgba"/>
-    
-    <button type="button" (click)="addNote(noteTitle.value, noteContent.value, color); noteTitle.value=''; noteContent.value='';">Create</button>
-    <button type="button" (click)="goBack()">Back</button>   
+
+    <div class="btn-container">
+        <button class="btn-create" type="button" (click)="addNote(noteTitle.value, noteContent.value, color); noteTitle.value=''; noteContent.value='';">Create</button>
+        <button class="btn-back" type="button" (click)="goBack()">Back</button>   
+    </div>    
 </div>

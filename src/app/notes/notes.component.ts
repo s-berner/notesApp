@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { Note } from '../note';
 import { NoteService } from '../note.service';
@@ -10,6 +10,10 @@ import { NoteService } from '../note.service';
 })
 export class NotesComponent implements OnInit {
   notes: Note[] = [];
+  ongoingNotes: Note[] = [];
+  archivedNotes: Note[] = [];
+  isCollapsed = true;
+ 
 
   constructor(private notesService: NoteService) { }
 
@@ -19,6 +23,18 @@ export class NotesComponent implements OnInit {
 
   getNotes(): void {
     this.notesService.getNotes()
-      .subscribe(notes => this.notes = notes);
+      .subscribe(notes => {
+        this.notes = notes;
+        this.ongoingNotes = notes.filter(note => !note.archived);
+        this.archivedNotes = notes.filter(note => note.archived);
+      });
+  }
+
+  collapsibleBtnClicked() {
+    if (this.isCollapsed) {
+      this.isCollapsed = false;
+    } else {
+      this.isCollapsed = true;
+    }
   }
 }

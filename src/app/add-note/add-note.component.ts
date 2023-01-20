@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { NoteService } from '../note.service';
 import { Note } from '../note';
 import { RgbColor } from '../color';
+import { ColorData } from '../colorData';
 
 @Component({
   selector: 'app-add-note',
@@ -49,12 +50,19 @@ export class AddNoteComponent implements OnInit {
     const created = new Date().toJSON();
 
     // add to db
-    this.noteService.addNote({ title, content, created, bg, fc } as Note)
+    const colorData: ColorData = {
+      bg: bg,
+      fc: fc,
+    }
+
+    const archived = false;
+    
+    this.noteService.addNote({ title, content, created, colorData, archived} as Note)
       .subscribe(note => {
         this.notes.push(note)
       });
 
-    // after adding the note go back to the overview
+    // after adding the note go back to the overviews
     this.goBack();
   }
 }

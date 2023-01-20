@@ -1,8 +1,9 @@
+import { ColorData } from "./colorData";
 export interface Note {
     id: number;
     title: string;
     content: string;
     created: string;
-    bg: string;
-    fc: string;
+    colorData: ColorData
+    archived: boolean;
 }

@@ -1,10 +1,18 @@
-<div class="note-detail-container">
-    <section *ngIf="note" [style.background]="note.bg" [style.color]="note.fc">
-        <h3 contenteditable="true" #noteTitle>{{note.title}}</h3>
-        <p contenteditable="true" #noteContent>{{note.content}}</p>
-        <p>Created: {{note.created | date}}</p>   
-        <button type="button" [disabled]="isDisabled" (click)="applyChanges(noteTitle.innerText, noteContent.innerText); updateNote()">Save</button>
-        <button type="button" (click)="deleteNote()">Delete</button> 
-        <button type="button" (click)="goBack()">Back</button>
+<div class="note-detail-container" *ngIf="note">
+    <section [style.background]="note.colorData.bg" [style.color]="note.colorData.fc">
+        <input type="text" [value]="note.title" (input)="onTextChange($event)" [style.background]="note.colorData.bg"
+            [style.color]="note.colorData.fc" #noteTitle />
+        <textarea type="text" [value]="note.content" (input)="onTextChange($event)"
+            [style.background]="note.colorData.bg" [style.color]="note.colorData.fc" #noteContent>
+        </textarea>
+        <p>Created: {{note.created | date}}</p>
     </section>
+    <div class="btn-container">
+        <button class="btn-save" type="button" [disabled]="isDisabled"
+            (click)="applyChanges(noteTitle.value, noteContent.value); saveNote()">
+            Save
+        </button>
+        <button class="btn-delete" type="button" (click)="deleteNote()">Delete</button>
+        <button class="btn-back" type="button" (click)="goBack()">Back</button>
+    </div>
 </div>

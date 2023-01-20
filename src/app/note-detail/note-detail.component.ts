@@ -20,30 +20,40 @@ export class NoteDetailComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit(): void {
-    this.getHero();
+    this.getNote();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
+    console.log('onChanges: ',changes);
+  }
+
+  onTextChange(e: any) {
+    console.log('text changed', e);
+    this.isDisabled = false;
   }
 
   applyChanges(title: string, content: string): void {
     if(this.note) {
       this.note.title = title;
       this.note.content = content;
+      console.log('changes applied');
     }
   }
 
-  getHero(): void {
+  getNote(): void {
     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
     this.noteService.getNote(id)
       .subscribe(note => this.note = note);
   }
 
-  updateNote(): void {
+  saveNote(): void {
     if(this.note) {
       this.noteService.updateNote(this.note)
         .subscribe(() => this.goBack());
+      console.log('changes saved')
+      // disable save button
+      this.isDisabled = true;
+      console.log('button reset')
     }
   }
 
@@ -52,7 +62,6 @@ export class NoteDetailComponent implements OnInit, OnChanges {
       this.noteService.deleteNote(String(this.note.id))
         .subscribe(() => this.goBack);
     }
-
     this.goBack();
   }
 
