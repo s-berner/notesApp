@@ -1,71 +1,92 @@
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DatePipe, Location } from '@angular/common';
 import { NoteService } from '../note.service';
 import { Note } from '../note';
+import { Priority } from '../priority';
 
 @Component({
   selector: 'app-note-detail',
   templateUrl: './note-detail.component.html',
   styleUrls: ['./note-detail.component.css']
 })
-export class NoteDetailComponent implements OnInit, OnChanges {
-  note: Note | undefined;
-  isDisabled: boolean = true;
+export class NoteDetailComponent implements OnInit {
+  note: Note | undefined; // undefined if the note cannot be found
+  saveBtnDisabled: boolean = true; // disable the save button by default
+  readonly priorities = ['low', 'medium', 'high']; // for the select element
   
   constructor(
-    private noteService: NoteService,
-    private route: ActivatedRoute,
-    private location: Location
+    private noteService: NoteService, // inject the note service to get the note from the server
+    private route: ActivatedRoute, // inject the route to get the id of the note from the url
+    private router: Router, // inject the router to navigate to the archived notes page
+    private location: Location // inject the location to go back to the previous page
   ) { }
 
   ngOnInit(): void {
     this.getNote();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log('onChanges: ',changes);
-  }
-
-  onTextChange(e: any) {
-    console.log('text changed', e);
-    this.isDisabled = false;
-  }
-
-  applyChanges(title: string, content: string): void {
-    if(this.note) {
-      this.note.title = title;
-      this.note.content = content;
-      console.log('changes applied');
-    }
-  }
-
+  /* get the note from the server */
   getNote(): void {
     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
     this.noteService.getNote(id)
       .subscribe(note => this.note = note);
   }
 
-  saveNote(): void {
+  /**
+   * If changes detected enable the save button
+   * TODO: check if the changes are actually different from the original note
+   */
+  onChangesReceived(): void {
+    this.saveBtnDisabled = false; // enable the save button when changes are made
+  }
+
+  /* saves the changes made to the note */
+  onSaveClicked(): void {
     if(this.note) {
       this.noteService.updateNote(this.note)
-        .subscribe(() => this.goBack());
-      console.log('changes saved')
-      // disable save button
-      this.isDisabled = true;
-      console.log('button reset')
+        .subscribe(() => this.onBackClicked());
+      this.saveBtnDisabled = true; // disable the save button
     }
   }
 
+  /* changes the archived property of the note to 'true' */
+  onArchiveClicked(): void {
+    if(this.note) {
+      this.note.archived = true; // archive the note
+      this.note.priority = Priority.Unselected;
+      this.noteService.updateNote(this.note)
+        .subscribe(() => this.router.navigate(['/archive']));
+      console.log('note with id ' + this.note.id + ' archived');
+    }
+  }
+
+  /** 
+   * changes the archived property of the note to 'false', 
+   * saves the changes and navigates to the overview page
+   */
+  onUnarchiveClicked(): void {
+    if(this.note) {
+      this.note.archived = false; // unarchive the note
+      this.noteService.updateNote(this.note)
+        .subscribe(() => this.router.navigate(['/overview']));
+      console.log('note with id ' + this.note.id + ' unarchived');
+    }
+  }
+
+  /** 
+   * delete the current note from the server
+   * and go back to the previous location
+   */
   deleteNote(): void {
     if(this.note) {
       this.noteService.deleteNote(String(this.note.id))
-        .subscribe(() => this.goBack);
+        .subscribe(() => this.onBackClicked());
     }
-    this.goBack();
   }
 
-  goBack(): void {
+  /* goes back to the previous location */
+  onBackClicked(): void {
     this.location.back();
   }
 }

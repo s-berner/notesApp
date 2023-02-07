@@ -1,19 +1,54 @@
-<div class="notes-container">
-    <section *ngFor="let note of ongoingNotes" routerLink="/detail/{{note.id}}" [style.background]="note.colorData.bg"
-        [style.color]="note.colorData.fc">
-        <h3>{{note.title}}</h3>
-        <p class="note-content">{{note.content}}</p>
-        <p class="note-created">Created: {{note.created | date}}</p>
-    </section>
-</div>
-<div>
-    <button class="btn-collapsible" type="button" (click)="collapsibleBtnClicked()">Show Archive</button>
-    <div class="collapsible" [hidden]="isCollapsed">
-        <section class="archived-notes" *ngFor="let note of archivedNotes" routerLink="/detail/{{note.id}}"
-            [style.background]="note.colorData.bg" [style.color]="note.colorData.fc">
-            <h3>{{note.title}}</h3>
-            <p class="note-content">{{note.content}}</p>
-            <p class="note-created">Created: {{note.created | date}}</p>
-        </section>
+<label for="groupBy">Group By </label>
+<select id="groupBy" [(ngModel)]="groupSelected" (change)="onGroupSelectionChange()">
+  <option *ngFor="let option of groupByOptions" [value]="option">
+    {{ option }}
+  </option>
+</select>
+<div class="notes-container" [class.grouped]="groupSelected !== 'default'" dndDropzone (dndDrop)="onDrop($event, notes)">
+
+  <!-- default display -->
+  <ng-template [ngIf]="groupSelected === 'default'">
+    <app-note-card *ngFor="let note of notes" [note]="note" 
+      [dndDraggable]="note"
+      (dndStart)="onDragStart($event)"
+      (dndMoved)="onDragMoved($event)"
+      (dndEnd)="onDragEnd($event)"
+    ></app-note-card>
+  </ng-template>
+  <div style="border: 1px orangered solid; border-radius: 5px; padding: 15px;" dndPlaceholderRef>
+    drop here
+  </div>
+
+  <!-- if grouped by pritority -->
+  <ng-template [ngIf]="groupSelected === 'priority'">
+    <div *ngFor="let group of groups | keyvalue" class="collapsible">
+      <div class="collapsible-header" (click)="onGroupHeaderClick(group.key)">
+        <h4>
+          {{ group.key == '0' ? 'No Priority' : 
+             group.key == '1' ? 'Low Priority' :
+             group.key == '2' ? 'Medium Priority' : 'High Priority' }}
+        </h4>
+        <img class="collapsible-arrow" src="https://img.icons8.com/ios-filled/50/000000/collapse-arrow.png"
+          height="50px" width="50px" [attr.collapsed]="isCollapsed[group.key]" />
+      </div>
+      <div class="notes-container" [class.collapsed]="isCollapsed[group.key]">
+        <app-note-card *ngFor="let note of group.value" [note]="note"></app-note-card>
+      </div>
     </div>
+  </ng-template>
+
+  <!-- if grouped by label -->
+  <ng-template [ngIf]="groupSelected === 'Label'">
+    <div *ngFor="let group of groups | keyvalue" class="collapsible">
+      <div class="collapsible-header" (click)="onGroupHeaderClick(group.key)">
+        <h4>{{ group.key }}</h4>
+        <img class="collapsible-arrow" src="https://img.icons8.com/ios-filled/50/000000/collapse-arrow.png"
+          height="50px" width="50px" [attr.collapsed]="isCollapsed[group.key]" />
+      </div>
+      <div class="notes-container" [class.collapsed]="isCollapsed[group.key]">
+        <app-note-card *ngFor="let note of group.value" [note]="note"></app-note-card>
+      </div>
+    </div>
+  </ng-template>
+
 </div>

@@ -1,0 +1,11 @@
+<section routerLink="/detail/{{note.id}}" [style.background]="note.colorData.bg" [style.color]="note.colorData.fc">
+    <div class="note-header">
+        <h3>{{note.title}}</h3>
+        <div class="emoji-pulse" [innerHTML]="emoji"></div>
+    </div>
+    <ng-template [ngIf]="note.label">
+        <div class="note-label" [style.bordercolor]="note.colorData.fc">{{note.label}}</div>
+    </ng-template>
+    <p class="note-content">{{note.content}}</p>
+    <p class="note-created">Created: {{note.created | date}}</p>
+</section>

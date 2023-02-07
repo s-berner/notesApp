@@ -19,6 +19,8 @@ input {
     border-width: 0;
     margin-top: 10px;
     margin-bottom: 10px;
+    color: inherit;
+    background-color: inherit;
 }
 
 textarea {
@@ -26,6 +28,9 @@ textarea {
     height: 200px;
     resize: none;
     border-width: 0;
+    color: inherit;
+    background-color: inherit;
+    white-space: pre-wrap;
 }
 
 .btn-container {
@@ -44,11 +49,6 @@ button:hover {
     cursor: pointer;
 }
 
-.btn-delete {
-    background: crimson;
-    color: white;
-}
-
 .btn-save:enabled {
     background-color: forestgreen;
     color: white;
@@ -56,4 +56,8 @@ button:hover {
 
 .btn-save:disabled {
     cursor: no-drop;
+}
+
+.greyscale {
+    filter: grayscale(90%);
 }

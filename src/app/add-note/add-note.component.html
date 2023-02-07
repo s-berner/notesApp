@@ -1,15 +1,24 @@
 <div class="add-note-container">
     <label for="new-note-title">Title: </label>
-    <input id="new-note-title" type="text" #noteTitle />
-    
-    <label for="new-note-content">Note:  </label>
-    <textarea id="new-note-content" type="text" #noteContent></textarea>
-    
-    <label for="new-note-backgroundcolor">Color: </label>
-    <input id="new-note-backgroundcolor" [(colorPicker)]="color" [style.background]="color" cpOutputFormat="rgba"/>
-
+    <input id="new-note-title" type="text" [(ngModel)]="title" />
+    <label for="new-note-content">Note: </label>
+    <textarea id="new-note-content" type="text" [(ngModel)]="content"></textarea>
+    <div class="bg-prio-container">
+        <label for="new-note-backgroundcolor">Color: </label>
+        <input id="new-note-backgroundcolor" [(colorPicker)]="color" [style.background]="color" cpOutputFormat="rgba" />
+        <label for="new-note-priority">Priority: </label>
+        <select id="new-note-priority" [(ngModel)]="priority">
+            <option value="0" selected>Select priority</option>
+            <option *ngFor="let opt of priorities; index as i" [value]="i + 1">{{opt}}</option>
+        </select>
+        <label for="new-note-label">Label: </label>
+        <select id="new-note-label" [(ngModel)]="label">
+            <option value="0" selected>Select label</option>
+            <option *ngFor="let label of labels" [value]="label.name">{{label.name}}</option>
+        </select>
+    </div>
     <div class="btn-container">
-        <button class="btn-create" type="button" (click)="addNote(noteTitle.value, noteContent.value, color); noteTitle.value=''; noteContent.value='';">Create</button>
-        <button class="btn-back" type="button" (click)="goBack()">Back</button>   
-    </div>    
+        <button class="btn-create" type="button" (click)="onCreateClicked();">Create</button>
+        <button class="btn-back" type="button" (click)="onBackClicked()">Back</button>
+    </div>
 </div>

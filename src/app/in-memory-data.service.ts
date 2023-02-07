@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 import { Note } from './note';
+import { Priority } from './priority';
+import { Label } from './label';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +20,9 @@ export class InMemoryDataService implements InMemoryDbService {
           fc: 'rgb(255,255,255)'
         },
         archived: false,
+        priority: Priority.Medium,
+        position: 1,
+        label: 'Work',
       },
       {
         id: 13,
@@ -29,39 +34,23 @@ export class InMemoryDataService implements InMemoryDbService {
           fc: 'rgb(255,255,255)' 
         },
         archived: false,
+        priority: Priority.High,
+        position: 0,
+        label: 'Shopping',
       },
       {
-        id: 14,
-        title: 'To-Do List - Work',
-        content: '1. Respond to client email 2. Finish report 3. Schedule meeting with team 4. Prepare for presentation 5. Follow up on project status',
+        id: 17,
+        title: 'Cat Vaccinations',
+        content: 'Feb, 17th 10:30 AM', 
         created: '2023-01-16T11:41:48.439Z',
         colorData: {
-          bg: 'rgb(194,135,212)',
-          fc: 'rgb(0,0,0)'
+          bg: 'rgba(196,141,204,0.62)',
+          fc: 'rgb(255,255,255)' 
         },
         archived: false,
-      },
-      {
-        id: 15,
-        title: 'Book Club - Next Meeting',
-        content: 'The next book club meeting will be on January 15th at 7pm. We will be discussing "The Great Gatsby" by F. Scott Fitzgerald. Refreshments will be provided. Please RSVP by January 13th.',
-        created: '2023-01-16T11:41:48.439Z',
-        colorData: {
-          bg: 'rgb(242,136,198)',
-          fc: 'rgb(0,0,0)'
-        },
-        archived: false,
-      },
-      {
-        id: 16,
-        title: 'Travel Plans - Spring Break',
-        content: 'Booked flight to Miami on March 15th. Hotel reservations at the Riviera for March 15-20th. Rent a car for the duration of the stay. Activities planned: visit South Beach, Little Havana, and Everglades National Park.',
-        created: '2023-01-16T11:41:48.439Z',
-        colorData: {
-          bg: 'rgba(23,31,93,1)',
-          fc: 'rgb(255,255,255)'
-        },
-        archived: false,
+        priority: Priority.Low,
+        position: 5,
+        label: 'Personal',
       },
       {
         id: 17,
@@ -73,11 +62,49 @@ export class InMemoryDataService implements InMemoryDbService {
           fc: 'rgb(255,255,255)'
         },
         archived: true,
+        priority: Priority.Unselected,
+        position: 2,
       },
-      
+      {
+        id: 18,
+        title: 'Plant-Based Meal Ideas',
+        content: 'Breakfast: Smoothie with almond milk, frozen berries, and banana Lunch: Chickpea salad with veggies, avocado, and a vinaigrette dressing Dinner: Grilled vegetables with quinoa and a tahini sauce',
+        created: '2022-01-16T11:41:48.439Z',
+        colorData: {
+          bg: 'rgba(204, 83, 61)',
+          fc: 'rgb(255,255,255)'
+        },
+        archived: true,
+        priority: Priority.Unselected,
+        position: 3,
+      },
+      {
+        id: 19,
+        title: 'Eating Out on a Plant-Based Diet',
+        content: 'When eating out, look for restaurants that offer plant-based options on their menu. If a restaurant does not have many options, consider ordering a vegetarian dish and asking for it to be made without dairy or eggs. Some popular fast food chains now offer plant-based burgers and sandwiches, so look for those options when on-the-go. When in doubt, a salad with plenty of veggies and a vinaigrette dressing can always be a safe option',
+        created: '2022-01-16T11:41:48.439Z',
+        colorData: {
+          bg: 'rgba(204, 83, 61)',
+          fc: 'rgb(255,255,255)'
+        },
+        archived: true,
+        priority: Priority.Unselected,
+        position: 4,
+      },
+    ];
+    const labels: Label[] = [
+      {id: 1, name: 'Work'},
+      {id: 2, name: 'Personal'},
+      {id: 3, name: 'Home'},
+      {id: 4, name: 'School'},
+      {id: 5, name: 'Shopping'},
+      {id: 6, name: 'Travel'},
+      {id: 7, name: 'Health'},
+      {id: 8, name: 'Finance'},
+      {id: 9, name: 'Other'}
     ];
     
-    return {notes};
+    return {notes, labels};
   }
 
   // Overrides the genId method to ensure that a hero always has an id.

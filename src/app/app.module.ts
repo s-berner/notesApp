@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -7,12 +8,15 @@ import { InMemoryDataService } from './in-memory-data.service';
 
 import { ColorPickerModule } from 'ngx-color-picker';
 
+import { DndModule } from 'ngx-drag-drop';
+
 import { AppComponent } from './app.component';
 import { NotesComponent } from './notes/notes.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AddNoteComponent } from './add-note/add-note.component';
 import { NoteDetailComponent } from './note-detail/note-detail.component';
-import { FormsModule } from '@angular/forms';
+import { ArchivedNotesComponent } from './archived-notes/archived-notes.component';
+import { NoteCardComponent } from './note-card/note-card.component';
 
 @NgModule({
   declarations: [
@@ -20,9 +24,12 @@ import { FormsModule } from '@angular/forms';
     NotesComponent,
     AddNoteComponent,
     NoteDetailComponent,
+    ArchivedNotesComponent,
+    NoteCardComponent,
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpClientModule,
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
@@ -33,6 +40,7 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     ColorPickerModule,
     FormsModule,
+    DndModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

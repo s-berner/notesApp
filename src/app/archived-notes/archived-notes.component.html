@@ -1,0 +1,3 @@
+<div class="notes-container">
+    <app-note-card *ngFor="let note of archivedNotes" [note]="note" [class.greyscale]="note.archived" ></app-note-card>
+</div>

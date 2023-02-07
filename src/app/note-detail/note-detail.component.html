@@ -1,18 +1,21 @@
 <div class="note-detail-container" *ngIf="note">
-    <section [style.background]="note.colorData.bg" [style.color]="note.colorData.fc">
-        <input type="text" [value]="note.title" (input)="onTextChange($event)" [style.background]="note.colorData.bg"
-            [style.color]="note.colorData.fc" #noteTitle />
-        <textarea type="text" [value]="note.content" (input)="onTextChange($event)"
-            [style.background]="note.colorData.bg" [style.color]="note.colorData.fc" #noteContent>
+    <section [style.background]="note.colorData.bg" [style.color]="note.colorData.fc" [class.greyscale]="note.archived">
+        <input type="text" [(ngModel)]="note.title" (ngModelChange)="onChangesReceived()" />
+        <textarea type="text" [(ngModel)]="note.content" (ngModelChange)="onChangesReceived()">
         </textarea>
         <p>Created: {{note.created | date}}</p>
     </section>
     <div class="btn-container">
-        <button class="btn-save" type="button" [disabled]="isDisabled"
-            (click)="applyChanges(noteTitle.value, noteContent.value); saveNote()">
+        <button class="btn-save" type="button" [disabled]="saveBtnDisabled" (click)="onSaveClicked()">
             Save
         </button>
-        <button class="btn-delete" type="button" (click)="deleteNote()">Delete</button>
-        <button class="btn-back" type="button" (click)="goBack()">Back</button>
+        <button *ngIf="!note.archived" class="btn-archvie" type="button" (click)="onArchiveClicked()">Archive</button>
+        <button *ngIf="note.archived" class="btn-archvie" type="button"
+            (click)="onUnarchiveClicked()">Unarchive</button>
+        <button class="btn-back" type="button" (click)="onBackClicked()">Back</button>
+        <select id="new-note-priority" [(ngModel)]="note.priority" (ngModelChange)="onChangesReceived()">
+            <option value="0" selected>Select priority</option>
+            <option *ngFor="let opt of priorities; index as i" [value]="i + 1">{{opt}}</option>
+        </select>
     </div>
 </div>
