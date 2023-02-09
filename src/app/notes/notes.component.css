@@ -49,3 +49,13 @@ h4 {
 .collapsed {
   display: none;
 }
+
+.drop-here-placeholder {
+  width: max-content;
+  padding: 20px;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+  align-self: center;
+  background-color: orangered;
+}

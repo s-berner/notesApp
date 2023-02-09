@@ -15,9 +15,7 @@
       (dndEnd)="onDragEnd($event)"
     ></app-note-card>
   </ng-template>
-  <div style="border: 1px orangered solid; border-radius: 5px; padding: 15px;" dndPlaceholderRef>
-    drop here
-  </div>
+  <div class="drop-here-placeholder" dndPlaceholderRef>drop here</div>
 
   <!-- if grouped by pritority -->
   <ng-template [ngIf]="groupSelected === 'priority'">
