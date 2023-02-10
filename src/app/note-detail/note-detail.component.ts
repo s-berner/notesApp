@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DatePipe, Location } from '@angular/common';
+import { Location } from '@angular/common';
+import { TitleService } from '../title.service';
 import { NoteService } from '../note.service';
 import { Note } from '../note';
 import { Priority } from '../priority';
@@ -17,6 +18,7 @@ export class NoteDetailComponent implements OnInit {
   
   constructor(
     private noteService: NoteService, // inject the note service to get the note from the server
+    private titleService: TitleService, // inject the title service to set the title
     private route: ActivatedRoute, // inject the route to get the id of the note from the url
     private router: Router, // inject the router to navigate to the archived notes page
     private location: Location // inject the location to go back to the previous page
@@ -30,7 +32,16 @@ export class NoteDetailComponent implements OnInit {
   getNote(): void {
     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
     this.noteService.getNote(id)
-      .subscribe(note => this.note = note);
+      .subscribe(note => {
+        this.note = note;
+        this.setTitle(this.note?.title || 'note not found');
+    });
+  }
+
+  /* Set the Tab Title */
+  setTitle(newTitle: string): void {
+    console.log('setting title to ' + newTitle);
+    this.titleService.setTitle(newTitle);
   }
 
   /**

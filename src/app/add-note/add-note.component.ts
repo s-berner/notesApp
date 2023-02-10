@@ -30,7 +30,7 @@ export class AddNoteComponent implements OnInit {
   constructor(
     private noteService: NoteService, // inject note service to get all notes and add a new note
     private labelService: LabelService, // inject label service to get all labels and add a new label
-    private location: Location // inject location service to go back to the previous page
+    private location: Location, // inject location service to go back to the previous page
   ) { }
 
   ngOnInit(): void {
@@ -49,9 +49,7 @@ export class AddNoteComponent implements OnInit {
     this.labelService.getLabels()
       .subscribe(labels => this.labels = labels);
   }
-
-  
-  
+    
   /* Go back to the previous page */
   onBackClicked(): void {
     this.location.back();
@@ -61,7 +59,7 @@ export class AddNoteComponent implements OnInit {
   onCreateClicked(): void {
     const title = this.title.trim(); 
     const content = this.content.trim();
-    const bg = this.color.trim();
+    const backgrColor = this.color.trim();
     const priority = this.priority > Priority.Unselected ? this.priority : Priority.Low; // if priority is 0, set it to 1 (low)
 
     const submitIsEmpty = !title && !content; 
@@ -70,15 +68,15 @@ export class AddNoteComponent implements OnInit {
     }
 
     // get readable font color
-    const fc = new RgbColor(bg).readableFontColor();
+    const fontColor = new RgbColor(backgrColor).readableFontColor();
 
     // get current date
     const created = new Date().toJSON();
 
     // create colorData object
     const colorData: ColorData = {
-      bg: bg,
-      fc: fc,
+      bg: backgrColor,
+      fc: fontColor,
     }
 
     const archived = false;

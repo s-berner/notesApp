@@ -7,11 +7,22 @@ import { NoteDetailComponent } from './note-detail/note-detail.component';
 import { ArchivedNotesComponent } from './archived-notes/archived-notes.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/overview', pathMatch: 'full' },
-  { path: 'overview', component: NotesComponent },
-  { path: 'addNote', component: AddNoteComponent },
-  { path: 'detail/:id', component: NoteDetailComponent },
-  { path: 'archive', component: ArchivedNotesComponent },  
+  { path: '', 
+    redirectTo: '/overview', 
+    pathMatch: 'full' },
+  { path: 'overview',
+    title: 'Overview',
+    component: NotesComponent },
+  { path: 'addNote',
+    title: 'Add Note',
+    component: AddNoteComponent },
+  { 
+    path: 'detail/:id',
+    // title set in component
+    component: NoteDetailComponent },
+  { path: 'archive',
+    title: 'Archived Notes', 
+    component: ArchivedNotesComponent },  
 ];
 
 @NgModule({

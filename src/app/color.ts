@@ -12,7 +12,9 @@ export class RgbColor {
     readonly white = 'rgb(255,255,255)';
 
     constructor(color: string) {
-        let colorVals = color.slice(color.indexOf('(') + 1, color.indexOf(')')).split(',');
+        let colorVals = color
+            .slice(color.indexOf('(') + 1, color.indexOf(')'))
+            .split(',');
         this.r = colorVals[0];
         this.g = colorVals[1];
         this.b = colorVals[2];
@@ -24,9 +26,9 @@ export class RgbColor {
      */
     isBright(): boolean {
         // Calculate the perceptive luminance (aka luma) - human eye favors green color...
-        const luma = ((0.299 * Number(this.r)) + (0.587 * Number(this.g)) + (0.114 * Number(this.b))) / 255;
+        const luminance = ((0.299 * Number(this.r)) + (0.587 * Number(this.g)) + (0.114 * Number(this.b))) / 255;
         // Return true if bright color and false otherwise
-        return luma > 0.5;
+        return luminance > 0.5;
     }
 
     /** Returns the color (black or white) that is readable on the color
