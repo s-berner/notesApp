@@ -17,6 +17,8 @@ import { AddNoteComponent } from './add-note/add-note.component';
 import { NoteDetailComponent } from './note-detail/note-detail.component';
 import { ArchivedNotesComponent } from './archived-notes/archived-notes.component';
 import { NoteCardComponent } from './note-card/note-card.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PriorityPipe } from './priority.pipe';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { NoteCardComponent } from './note-card/note-card.component';
     NoteDetailComponent,
     ArchivedNotesComponent,
     NoteCardComponent,
+    PageNotFoundComponent,
+    PriorityPipe,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,7 @@ import { NoteCardComponent } from './note-card/note-card.component';
     FormsModule,
     DndModule,
   ],
-  providers: [],
+  providers: [PriorityPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

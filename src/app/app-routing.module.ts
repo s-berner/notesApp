@@ -5,6 +5,7 @@ import { NotesComponent } from './notes/notes.component';
 import { AddNoteComponent } from './add-note/add-note.component';
 import { NoteDetailComponent } from './note-detail/note-detail.component';
 import { ArchivedNotesComponent } from './archived-notes/archived-notes.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: '', 
@@ -22,7 +23,11 @@ const routes: Routes = [
     component: NoteDetailComponent },
   { path: 'archive',
     title: 'Archived Notes', 
-    component: ArchivedNotesComponent },  
+    component: ArchivedNotesComponent },
+  { path: '**',
+    pathMatch: 'full',
+    title: 'Page Not Found',
+    component: PageNotFoundComponent}
 ];
 
 @NgModule({

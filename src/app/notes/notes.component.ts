@@ -3,6 +3,7 @@ import { Component, OnInit, Output } from '@angular/core';
 import { DndDropEvent } from 'ngx-drag-drop';
 
 import { NoteService } from '../note.service';
+import { PriorityPipe } from '../priority.pipe';
 import { Note } from '../note';
 
 @Component({
@@ -12,13 +13,14 @@ import { Note } from '../note';
 })
 export class NotesComponent implements OnInit {
   @Output() notes: Note[] = []; 
-  groupByOptions = ['default', 'priority', 'Label']; // set the options for the group by dropdown
+  groupByOptions = ['none', 'priority', 'Label']; // set the options for the group by dropdown
   groupSelected = this.groupByOptions[0]; // default to no grouping
   groups = new Map<string, Note[]>();
   isCollapsed: Record<string, boolean> = {};
 
   constructor(
-    private notesService: NoteService
+    private notesService: NoteService,
+    private priorityPipe: PriorityPipe,
   ) { }
 
   ngOnInit(): void {
@@ -47,7 +49,6 @@ export class NotesComponent implements OnInit {
 
   /**
    * handle the change event of the group by dropdown
-   * TODO: Add more options to group by
    */
   onGroupSelectionChange(): void {
     switch(this.groupSelected) {
@@ -142,6 +143,18 @@ export class NotesComponent implements OnInit {
 
       // update the notes on the server
       this.updateNotes();
+    }
+  }
+
+  /* based on group selected return title for header */
+  selectGroupTitle(key: string, groupedBy: string): string {
+    switch(groupedBy) {
+      case 'priority':
+        return this.priorityPipe.transform(key);
+      case 'Label':
+        return key;
+      default:
+        return 'error';
     }
   }
 }

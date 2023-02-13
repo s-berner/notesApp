@@ -21,7 +21,7 @@ export class NoteDetailComponent implements OnInit {
     private titleService: TitleService, // inject the title service to set the title
     private route: ActivatedRoute, // inject the route to get the id of the note from the url
     private router: Router, // inject the router to navigate to the archived notes page
-    private location: Location // inject the location to go back to the previous page
+    private location: Location, // inject the location to go back to the previous page
   ) { }
 
   ngOnInit(): void {
@@ -34,7 +34,7 @@ export class NoteDetailComponent implements OnInit {
     this.noteService.getNote(id)
       .subscribe(note => {
         this.note = note;
-        this.setTitle(this.note?.title || 'note not found');
+        this.setTitle(this.note?.title || 'Note not found');
     });
   }
 
